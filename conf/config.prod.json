@@ -1,5 +1,5 @@
 {
-    "env": "production",
+    "env": "production",    
     "contractor": {
         "host": "http://127.0.0.1",
         "port": 80
@@ -10,5 +10,10 @@
     },
     "cron": {
         "interval": 120000
+    },
+    "leancloud": {
+        "appid": "IFe7LaMzneX2HEkefrTTgJXR",
+        "appkey": "yFgff0Cx5nuGx2jgcE0h9hmT",
+        "masterkey": "2cxceUuV5jLrUPRG6y0Vgjjo"
     }
 }

@@ -4,10 +4,17 @@
   "description": "",
   "main": "conf.js",
   "dependencies": {
+    "avoscloud-sdk": "^0.6.5",
     "express": "^4.13.3",
     "underscore": "^1.8.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "body-parser": "^1.14.1",
+    "compression": "^1.6.0",
+    "cookie-parser": "^1.4.0",
+    "multer": "^1.1.0",
+    "underscore": "^1.8.3"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
