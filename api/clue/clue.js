@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-11-25 10:58:12
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-11-28 15:58:00
+ * @Last Modified time: 2015-11-28 17:26:19
  */
 
 'use strict';
@@ -20,7 +20,7 @@ function saveClue(req, res) {
         tag = req.body.tag,
         ip = req.body.ip,
         data = req.body.data,
-        cid = req.body.cid,
+        eid = req.body.eid,
         weight = req.body.weight;
 
     var query = new AV.Query(Clue);
@@ -35,7 +35,7 @@ function saveClue(req, res) {
                     tag: tag,
                     ip: ip,
                     data: data,
-                    cid: cid,
+                    eid: eid,
                     weight: 0,
                 }, {
                     success: function(object) {
@@ -83,7 +83,7 @@ function fetchClue(req, res) {
             results.forEach(function(item) {
                 console.log(item.get('domain'));
             })
-            res.send("good");
+            res.send(results);
         },
         error: function(error) {
             
