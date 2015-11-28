@@ -17,11 +17,11 @@ var express = require('express'),
         multer: require('multer'),
         compress: require('compression'),
         api: require('./api'),
-        router: require('./router')
+        router: require('./router'),
+        error: require('./error')
     },
 
-    app = express(),
-    logger = console;
+    app = express();
 
 
 function init() {
@@ -51,17 +51,15 @@ function init() {
     app.use(express.static('public'));
 
     // 错误处理中间件
-    app.use(function(err, req, res, next) {
-        res.status(500).send('Something broke!');
-    });
+    app.use(middleware.error);
 
     // 启用API
     app.use('/api', middleware.api());
 
     // 启用路由
     app.use('/', middleware.router);
-    
-    app.listen(4000, function() {
+
+    app.listen(4000, function () {
         console.log("监听4000端口");
     })
 }

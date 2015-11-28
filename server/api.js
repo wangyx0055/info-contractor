@@ -43,7 +43,7 @@ module.exports = function() {
     apiFiles.forEach(function(item) {
         var api = require(item);
         apis.push(api);
-    })
+    });
     // 遍历api文件
     apis.forEach(function(item) {
         // 遍历每个文件中的api

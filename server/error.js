@@ -6,3 +6,18 @@
 */
 
 'use strict';
+
+var express = require('express'),
+
+    router = express.Router();
+
+// 该路由使用的中间件
+router.use(function (err, req, res, next) {
+    if (res.status(500)) {
+        res.send('Something broke!');
+    } else {
+        next();
+    }
+});
+
+module.exports = router;
