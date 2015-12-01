@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-11-24 15:25:25
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-11-25 15:01:58
+ * @Last Modified time: 2015-12-01 11:22:32
  */
 
 'use strict';
@@ -44,6 +44,7 @@ module.exports = function() {
         var api = require(item);
         apis.push(api);
     });
+    
     // 遍历api文件
     apis.forEach(function(item) {
         // 遍历每个文件中的api
