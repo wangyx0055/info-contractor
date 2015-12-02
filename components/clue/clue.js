@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-12-01 11:33:25
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-01 13:55:11
+ * @Last Modified time: 2015-12-01 16:52:52
  */
 
 'use strict';
@@ -70,10 +70,14 @@ exports.search = search;
 // 获取对象
 function fetch(options, callback) {
     var query = new AV.Query(Clue);
+    var fromSpy = options.fromSpy;
     query.ascending("createdAt");
     query.limit(options.num);
     query.find({
         success: function(results) {
+            if (fromSpy) {
+                deleteList(results, function(err, result) {});
+            }
             callback(null, results);
         },
         error: function(error) {
@@ -82,3 +86,20 @@ function fetch(options, callback) {
     });
 }
 exports.fetch = fetch;
+
+// 删除对象
+function deleteList(results, callback) {
+    var query = new AV.Query(Clue);
+
+    results.forEach(function(item) {
+        query.equalTo("objectId", item.id);
+        query.destroyAll({
+            success: function() {
+                callback(null, results);
+            },
+            error: function(err) {
+                callback("删除失败", null);
+            }
+        });
+    })
+}
