@@ -2,42 +2,24 @@
  * @Author: boxizen
  * @Date:   2015-12-01 11:33:25
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-01 16:52:52
+ * @Last Modified time: 2015-12-02 18:11:20
  */
 
 'use strict';
 
 var Q = require('q'),
     AV = require('avoscloud-sdk'),
-    conf = require('../../conf');
+    conf = require('../../conf'),
+    Monitor = require('../monitor/monitor');
 
 // 采用leanCloud云存储
 AV.initialize(conf.leancloud.appid, conf.leancloud.appkey);
 var Clue = AV.Object.extend('Clue');
 
-// 查找重复url的记录
-function isDul(url) {
-    var deferred = Q.defer(),
-        query = new AV.Query(Clue);
-    query.equalTo('url', url);
-    query.find({
-        success: function(results) {
-            if (results.length == 0) {
-                deferred.resolve();
-            } else {
-                deferred.reject("重复");
-            }
-        },
-        error: function(error) {
-            deferred.reject("查询出错");
-        }
-    });
-    return deferred.promise;
-}
-
 // 创建对象
 function create(object, callback) {
-    isDul(object.url).then(function(result) {
+    // 判断监控表中是否存在重复url
+    Monitor.uniq(object.url).then(function(result) {
         var clue = new Clue();
         clue.save(object, {
             success: function(result) {
