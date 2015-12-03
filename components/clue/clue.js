@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-12-01 11:33:25
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-02 18:11:20
+ * @Last Modified time: 2015-12-02 18:22:18
  */
 
 'use strict';
@@ -18,8 +18,9 @@ var Clue = AV.Object.extend('Clue');
 
 // 创建对象
 function create(object, callback) {
-    // 判断监控表中是否存在重复url
-    Monitor.uniq(object.url).then(function(result) {
+
+    Monitor.uniq(object.url).then(function(result) {        
+        // 保存clue数据
         var clue = new Clue();
         clue.save(object, {
             success: function(result) {
@@ -28,6 +29,10 @@ function create(object, callback) {
             error: function(error) {
                 callback('保存失败', null);
             }
+        })
+        // 备份clue数据
+        Monitor.create(clue, function(err, result) {
+            
         })
     }, function(error) {
         callback("重复url", null);

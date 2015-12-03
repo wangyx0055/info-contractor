@@ -2,13 +2,14 @@
  * @Author: boxizen
  * @Date:   2015-12-01 14:11:36
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-02 15:13:09
+ * @Last Modified time: 2015-12-04 01:05:47
  */
 
 'use strict';
 
 var Clue = require('../clue/clue'),
     Target = require('../target/target'),
+    MQ = require('../mq/mq'),
     logger = console;
 
 // 创建对象
@@ -25,7 +26,7 @@ function create(task, callback) {
         var targetItem = {
             tag: tag,
             url: url,
-            data: target,            
+            data: target,
             author: author
         };
         Target.create(targetItem, function(err, result) {})
@@ -34,11 +35,16 @@ function create(task, callback) {
         clue.forEach(function(item) {
             var newItem = {
                 url: item.url,
-                tag: tag,                
+                tag: tag,
                 original: url,
                 author: author
             };
-            Clue.create(newItem, function(err, result) {});
+            MQ.push('clue', newItem, function(err, o) {
+                if(err) {
+                    logger.info(err);
+                }
+            })
+            /*Clue.create(newItem, function(err, result) {});*/
         })
     }
 }

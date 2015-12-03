@@ -2,14 +2,16 @@
  * @Author: boxizen
  * @Date:   2015-12-02 17:48:24
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-02 18:10:15
+ * @Last Modified time: 2015-12-02 18:40:31
  */
 
 'use strict';
 
 var Q = require('q'),
     AV = require('avoscloud-sdk'),
-    conf = require('../../conf');
+    conf = require('../../conf'),
+
+    logger = console;
 
 // 采用leanCloud云存储
 AV.initialize(conf.leancloud.appid, conf.leancloud.appkey);

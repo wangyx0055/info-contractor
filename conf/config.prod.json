@@ -11,6 +11,10 @@
     "cron": {
         "interval": 120000
     },
+    "redis": {
+        "host": "localhost",
+        "port": 6379
+    },
     "leancloud": {
         "appid": "IFe7LaMzneX2HEkefrTTgJXR",
         "appkey": "yFgff0Cx5nuGx2jgcE0h9hmT",

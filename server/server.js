@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-11-23 16:58:22
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-01 00:17:52
+ * @Last Modified time: 2015-12-04 00:48:30
  */
 
 'use strict';
@@ -10,6 +10,7 @@
 var express = require('express'),
 
     conf = require('../conf'),
+    mq = require('../components/mq/mq'),
 
     middleware = {
         bodyParser: require('body-parser'),
@@ -28,6 +29,8 @@ function init() {
 
     // 开启配置文件
     conf.init();
+    
+    mq.createConn();    
 
     // 处理 application/json 格式请求
     app.use(middleware.bodyParser.json({

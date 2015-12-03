@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-11-25 10:58:12
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-02 15:01:49
+ * @Last Modified time: 2015-12-02 20:22:54
  */
 
 'use strict';
@@ -44,7 +44,7 @@ function onGet(req, res) {
 // 批量获取对象
 function onGetList(req, res) {
     var options = {
-        num: 1,
+        num: 10,
         fromSpy: true
     }
     Clue.fetch(options, function(err, result) {
