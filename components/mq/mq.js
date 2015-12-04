@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-12-03 11:05:16
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-04 00:59:35
+ * @Last Modified time: 2015-12-04 13:49:24
  */
 
 'use strict';
@@ -17,7 +17,7 @@ function createConn() {
     var port = conf.redis.port,
         host = conf.redis.host;
 
-    client = redis.createClient(port, host, {});
+    client = redis.createClient(port, host, {});     
 
     //client.on('connect', push);
     client.on('error', function(err) {
