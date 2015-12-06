@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-11-23 16:58:22
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-06 19:55:17
+ * @Last Modified time: 2015-12-06 20:35:55
  */
 
 'use strict';
@@ -22,13 +22,6 @@ var express = require('express'),
     },
 
     app = express();
-
-// leancloud云引擎配置
-var AV = require('leanengine');
-var APP_ID = process.env.LC_APP_ID;
-var APP_KEY = process.env.LC_APP_KEY;
-var MASTER_KEY = process.env.LC_APP_MASTER_KEY;
-AV.initialize(APP_ID, APP_KEY, MASTER_KEY);
 
 function init() {
 
