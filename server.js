@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-11-23 16:58:22
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-06 20:35:55
+ * @Last Modified time: 2015-12-06 20:55:56
  */
 
 'use strict';
@@ -63,7 +63,7 @@ function init() {
     app.use('/', middleware.router);
 
     // LeanEngine 运行时会分配端口并赋值到该变量。
-    var PORT = parseInt(process.env.LC_APP_PORT || 3000);
+    var PORT = parseInt(process.env.LC_APP_PORT || 4000);
 
     app.listen(PORT, function() {
         console.log('Node app is running, port:', PORT);
