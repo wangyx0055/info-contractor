@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-11-23 16:58:22
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-06 19:43:03
+ * @Last Modified time: 2015-12-06 19:55:17
  */
 
 'use strict';
@@ -69,9 +69,12 @@ function init() {
     // 启用路由
     app.use('/', middleware.router);
 
-    app.listen(4000, function() {
-        console.log("监听4000端口");
-    })
+    // LeanEngine 运行时会分配端口并赋值到该变量。
+    var PORT = parseInt(process.env.LC_APP_PORT || 3000);
+
+    app.listen(PORT, function() {
+        console.log('Node app is running, port:', PORT);
+    });
 }
 
 init();
