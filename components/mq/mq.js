@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-12-03 11:05:16
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-04 13:49:24
+ * @Last Modified time: 2015-12-05 01:52:14
  */
 
 'use strict';
@@ -18,12 +18,11 @@ function createConn() {
         host = conf.redis.host;
 
     client = redis.createClient(port, host, {});     
-
-    //client.on('connect', push);
+    
     client.on('error', function(err) {
         console.log(err);
     })
-}
+}   
 exports.createConn = createConn;
 
 function push(key, value, callback) {

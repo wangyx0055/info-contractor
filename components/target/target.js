@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-12-01 14:11:43
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-01 17:15:38
+ * @Last Modified time: 2015-12-06 15:32:05
  */
 
 'use strict';
@@ -32,6 +32,12 @@ exports.create = create;
 // 获取对象
 function fetch(options, callback) {
     var query = new AV.Query(Target);
+    if(options.cat) {
+        query.equalTo("category", options.cat);
+    }
+    if(options.tag) {
+        query.equalTo("tag", options.tag);
+    }
     query.ascending("createdAt");
     query.find({
         success: function(results) {

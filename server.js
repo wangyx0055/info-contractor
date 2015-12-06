@@ -2,35 +2,42 @@
  * @Author: boxizen
  * @Date:   2015-11-23 16:58:22
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-04 00:48:30
+ * @Last Modified time: 2015-12-06 19:43:03
  */
 
 'use strict';
 
 var express = require('express'),
 
-    conf = require('../conf'),
-    mq = require('../components/mq/mq'),
+    conf = require('./conf'),
 
     middleware = {
         bodyParser: require('body-parser'),
         cookieParser: require('cookie-parser'),
         multer: require('multer'),
         compress: require('compression'),
-        api: require('./api'),
-        router: require('./router'),
-        error: require('./error')
+        api: require('./middleware/api'),
+        router: require('./middleware/router'),
+        error: require('./middleware/error')
     },
 
     app = express();
 
+// leancloud云引擎配置
+var AV = require('leanengine');
+var APP_ID = process.env.LC_APP_ID;
+var APP_KEY = process.env.LC_APP_KEY;
+var MASTER_KEY = process.env.LC_APP_MASTER_KEY;
+AV.initialize(APP_ID, APP_KEY, MASTER_KEY);
 
 function init() {
 
     // 开启配置文件
     conf.init();
-    
-    mq.createConn();    
+
+    // 定时任务
+    //var cron = require('./cron');
+    //cron.cronJob();
 
     // 处理 application/json 格式请求
     app.use(middleware.bodyParser.json({
@@ -62,7 +69,7 @@ function init() {
     // 启用路由
     app.use('/', middleware.router);
 
-    app.listen(4000, function () {
+    app.listen(4000, function() {
         console.log("监听4000端口");
     })
 }

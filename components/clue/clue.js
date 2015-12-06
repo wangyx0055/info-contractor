@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-12-01 11:33:25
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-02 18:22:18
+ * @Last Modified time: 2015-12-05 21:16:37
  */
 
 'use strict';
@@ -19,24 +19,25 @@ var Clue = AV.Object.extend('Clue');
 // 创建对象
 function create(object, callback) {
 
-    Monitor.uniq(object.url).then(function(result) {        
-        // 保存clue数据
-        var clue = new Clue();
-        clue.save(object, {
-            success: function(result) {
-                callback(null, result);
-            },
-            error: function(error) {
-                callback('保存失败', null);
-            }
-        })
+    // 保存clue数据
+    var clue = new Clue();
+    clue.save(object, {
+        success: function(result) {
+            callback(null, result);
+        },
+        error: function(error) {
+            callback('保存失败', null);
+        }
+    })
+
+    /*Monitor.uniq(object.url).then(function(result) {
         // 备份clue数据
         Monitor.create(clue, function(err, result) {
-            
+
         })
     }, function(error) {
         callback("重复url", null);
-    });
+    });*/
 }
 exports.create = create;
 
@@ -58,12 +59,13 @@ exports.search = search;
 function fetch(options, callback) {
     var query = new AV.Query(Clue);
     var fromSpy = options.fromSpy;
+    query.equalTo("available", "1");
     query.ascending("createdAt");
     query.limit(options.num);
     query.find({
         success: function(results) {
             if (fromSpy) {
-                deleteList(results, function(err, result) {});
+                updateList(results);
             }
             callback(null, results);
         },
@@ -73,6 +75,14 @@ function fetch(options, callback) {
     });
 }
 exports.fetch = fetch;
+
+// 修改对象
+function updateList(results) {
+    results.forEach(function(item) {
+        item.set('available', '0');
+        item.save();
+    })
+}
 
 // 删除对象
 function deleteList(results, callback) {

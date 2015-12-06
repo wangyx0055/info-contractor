@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-11-25 10:58:42
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-01 17:22:18
+ * @Last Modified time: 2015-12-06 15:26:11
  */
 
 
@@ -22,12 +22,19 @@ function saveHarvest(req, res) {
 
 // 查找列表
 function fetchHarvest(req, res) {
-	Harvest.fetch(function(err, result) {
-		var obj = {
-			data: result
-		}
-		res.send(obj);
-	})
+
+    var cat = req.query.category,
+        tag = req.query.tag;
+
+    Harvest.fetch({
+    	cat: cat,
+    	tag: tag
+    }, function(err, result) {
+        var obj = {
+            data: result
+        }
+        res.send(obj);
+    })
 }
 
 module.exports = [

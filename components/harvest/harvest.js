@@ -2,14 +2,13 @@
  * @Author: boxizen
  * @Date:   2015-12-01 14:11:36
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-04 01:05:47
+ * @Last Modified time: 2015-12-06 15:27:59
  */
 
 'use strict';
 
 var Clue = require('../clue/clue'),
-    Target = require('../target/target'),
-    MQ = require('../mq/mq'),
+    Target = require('../target/target'),    
     logger = console;
 
 // 创建对象
@@ -39,20 +38,15 @@ function create(task, callback) {
                 original: url,
                 author: author
             };
-            MQ.push('clue', newItem, function(err, o) {
-                if(err) {
-                    logger.info(err);
-                }
-            })
-            /*Clue.create(newItem, function(err, result) {});*/
+            Clue.create(newItem, function(err, result) {});
         })
     }
 }
 exports.create = create;
 
 // 查找对象
-function fetch(callback) {
+function fetch(options, callback) {
 
-    Target.fetch(null, callback);
+    Target.fetch(options, callback);
 }
 exports.fetch = fetch;
