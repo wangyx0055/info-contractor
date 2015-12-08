@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-12-01 14:11:36
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-06 15:27:59
+ * @Last Modified time: 2015-12-09 00:28:16
  */
 
 'use strict';
@@ -13,11 +13,12 @@ var Clue = require('../clue/clue'),
 
 // 创建对象
 function create(task, callback) {
-
+    
     var target = task.harvest.honey,
         clue = task.harvest.flower,
         author = task.harvest.author,
         tag = task.harvest.tag,
+        category = task.harvest.category,
         oid = task.oid,
         url = task.url;
 
@@ -26,7 +27,8 @@ function create(task, callback) {
             tag: tag,
             url: url,
             data: target,
-            author: author
+            author: author,
+            category: category
         };
         Target.create(targetItem, function(err, result) {})
     }
@@ -36,9 +38,10 @@ function create(task, callback) {
                 url: item.url,
                 tag: tag,
                 original: url,
-                author: author
+                author: author,
+                category: category                
             };
-            Clue.create(newItem, function(err, result) {});
+            Clue.create(newItem, function(err, result) {console.log(err);});
         })
     }
 }

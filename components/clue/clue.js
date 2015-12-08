@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-12-01 11:33:25
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-05 21:16:37
+ * @Last Modified time: 2015-12-09 00:28:00
  */
 
 'use strict';
@@ -25,7 +25,7 @@ function create(object, callback) {
         success: function(result) {
             callback(null, result);
         },
-        error: function(error) {
+        error: function(error) {            
             callback('保存失败', null);
         }
     })
