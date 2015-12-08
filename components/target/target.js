@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-12-01 14:11:43
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-06 15:32:05
+ * @Last Modified time: 2015-12-09 01:32:03
  */
 
 'use strict';
@@ -16,7 +16,7 @@ AV.initialize(conf.leancloud.appid, conf.leancloud.appkey);
 var Target = AV.Object.extend('Target');
 
 // 创建对象
-function create(object, callback) {
+function create(object, callback) {     
     var target = new Target();
     target.save(object, {
         success: function(result) {

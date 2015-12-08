@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-11-23 16:58:22
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-06 20:55:56
+ * @Last Modified time: 2015-12-09 00:53:39
  */
 
 'use strict';
@@ -24,7 +24,7 @@ var express = require('express'),
     app = express();
 
 function init() {
-
+    
     // 开启配置文件
     conf.init();
 
