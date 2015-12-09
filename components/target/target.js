@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-12-01 14:11:43
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-09 11:52:59
+ * @Last Modified time: 2015-12-09 20:40:17
  */
 
 'use strict';
@@ -29,7 +29,7 @@ function create(object, callback) {
 }
 exports.create = create;
 
-// 获取对象
+// 获取对象列表
 function fetch(options, callback) {
     var query = new AV.Query(Target);
     if (options.cat) {
@@ -54,3 +54,20 @@ function fetch(options, callback) {
     });
 }
 exports.fetch = fetch;
+
+// 获取对象
+function get(options, callback) {
+    var query = new AV.Query(Target);
+    if (!options.oid) {
+        callback('objectId缺失', null);
+    }
+    query.get(options.oid, {
+        success: function(post) {
+            callback(null, post);
+        },
+        error: function(error) {
+            callback('查找失败', null);
+        }
+    });
+}
+exports.get = get;

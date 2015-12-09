@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-11-25 10:58:42
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-09 01:33:28
+ * @Last Modified time: 2015-12-09 14:52:42
  */
 
 
@@ -39,7 +39,23 @@ function fetchHarvest(req, res) {
     })
 }
 
+// 查找列表
+function getHarvest(req, res) {
+
+    var oid = req.query.oid;
+
+    Harvest.get({
+        oid: oid
+    }, function(err, result) {
+        var obj = {
+            data: result
+        }
+        res.send(obj);
+    })
+}
+
 module.exports = [
     ['put', '/harvest/onCreate', saveHarvest],
-    ['get', '/harvest/onGetList', fetchHarvest],
+    ['get', '/harvest/onGet', getHarvest],
+    ['get', '/harvest/onGetList', fetchHarvest],    
 ];

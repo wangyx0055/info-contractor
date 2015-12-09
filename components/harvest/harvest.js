@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-12-01 14:11:36
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-09 11:37:06
+ * @Last Modified time: 2015-12-09 14:53:40
  */
 
 'use strict';
@@ -32,7 +32,7 @@ function create(task, callback) {
             data: target,
             author: author,
             category: category,
-            publishAt: publishAt
+            publishAt: new Date(parseInt(publishAt))
         };
         Target.create(targetItem, function(err, result) {})
     }
@@ -51,9 +51,16 @@ function create(task, callback) {
 }
 exports.create = create;
 
-// 查找对象
+// 查找对象列表
 function fetch(options, callback) {
 
     Target.fetch(options, callback);
 }
 exports.fetch = fetch;
+
+// 查找对象
+function get(options, callback) {
+
+    Target.get(options, callback);
+}
+exports.get = get;
