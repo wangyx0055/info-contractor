@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-11-23 16:58:22
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-09 00:53:39
+ * @Last Modified time: 2015-12-09 12:36:58
  */
 
 'use strict';
@@ -16,6 +16,7 @@ var express = require('express'),
         cookieParser: require('cookie-parser'),
         multer: require('multer'),
         compress: require('compression'),
+        domain: require('./middleware/domain'),
         api: require('./middleware/api'),
         router: require('./middleware/router'),
         error: require('./middleware/error')
@@ -24,7 +25,7 @@ var express = require('express'),
     app = express();
 
 function init() {
-    
+
     // 开启配置文件
     conf.init();
 
@@ -55,6 +56,10 @@ function init() {
 
     // 错误处理中间件
     app.use(middleware.error);
+
+    //设置跨域访问
+    // Add headers
+    app.use(middleware.domain);
 
     // 启用API
     app.use('/api', middleware.api());

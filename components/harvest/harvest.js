@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-12-01 14:11:36
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-09 01:27:25
+ * @Last Modified time: 2015-12-09 11:37:06
  */
 
 'use strict';
@@ -20,6 +20,7 @@ function create(task, callback) {
         author = task.harvest.author,
         tag = task.harvest.tag,
         category = task.harvest.category,
+        publishAt = task.harvest.publishAt,
         oid = task.oid,
         url = task.url;
 
@@ -27,9 +28,11 @@ function create(task, callback) {
         var targetItem = {
             tag: tag,
             url: url,
+            oid: oid,
             data: target,
             author: author,
-            category: category
+            category: category,
+            publishAt: publishAt
         };
         Target.create(targetItem, function(err, result) {})
     }

@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-12-01 14:11:43
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-09 01:32:03
+ * @Last Modified time: 2015-12-09 11:52:59
  */
 
 'use strict';
@@ -16,7 +16,7 @@ AV.initialize(conf.leancloud.appid, conf.leancloud.appkey);
 var Target = AV.Object.extend('Target');
 
 // 创建对象
-function create(object, callback) {     
+function create(object, callback) {
     var target = new Target();
     target.save(object, {
         success: function(result) {
@@ -32,13 +32,18 @@ exports.create = create;
 // 获取对象
 function fetch(options, callback) {
     var query = new AV.Query(Target);
-    if(options.cat) {
-        query.equalTo("category", options.cat);
+    if (options.cat) {
+        query.equalTo("category", parseInt(options.cat));
     }
-    if(options.tag) {
+    if (options.tag) {
         query.equalTo("tag", options.tag);
     }
-    query.ascending("createdAt");
+    if (options.page) {
+        var page = parseInt(options.page) - 1;
+        query.skip(10 * page);
+        query.limit(10);
+    }
+    query.descending("publishAt");
     query.find({
         success: function(results) {
             callback(null, results);

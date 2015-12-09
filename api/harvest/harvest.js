@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-11-25 10:58:42
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-06 15:26:11
+ * @Last Modified time: 2015-12-09 01:33:28
  */
 
 
@@ -24,11 +24,13 @@ function saveHarvest(req, res) {
 function fetchHarvest(req, res) {
 
     var cat = req.query.category,
-        tag = req.query.tag;
+        tag = req.query.tag,
+        page = req.query.page;
 
     Harvest.fetch({
     	cat: cat,
-    	tag: tag
+    	tag: tag,
+        page: page
     }, function(err, result) {
         var obj = {
             data: result
