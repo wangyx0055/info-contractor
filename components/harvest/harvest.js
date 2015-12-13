@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-12-01 14:11:36
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-09 14:53:40
+ * @Last Modified time: 2015-12-13 20:47:59
  */
 
 'use strict';
@@ -23,8 +23,8 @@ function create(task, callback) {
         publishAt = task.harvest.publishAt,
         oid = task.oid,
         url = task.url;
-
-    if (target) {
+    
+    if (target) {        
         var targetItem = {
             tag: tag,
             url: url,
