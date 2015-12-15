@@ -2,14 +2,14 @@
  * @Author: boxizen
  * @Date:   2015-12-05 00:20:54
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-05 01:35:03
+ * @Last Modified time: 2015-12-16 01:40:39
  */
 
 'use strict';
 
 var Schedule = require('node-schedule'),
     mq = require('../components/mq/mq'),
-    Clue = require('../components/clue/clue');
+    Entry = require('../components/entry/entry');
 
 // 定时任务
 function cronJob() {
@@ -18,15 +18,24 @@ function cronJob() {
 
     rule.second = time;
     Schedule.scheduleJob(rule, function() {
-        mq.pop('clue', function(err, obj) {
-            if (err || !obj) {
-                console.log('从redis读任务时出错');
-                console.log(err);
-                console.log(obj);
-            } else {
-                var item = JSON.parse(obj);
-                Clue.create(item, function(err, result) {});
-            }
+        Entry.validate(function(err, results) {
+            results.forEach(function(item) {
+                var crtTime = new Date().valueOf();
+                var dis = crtTime - item.get('lastUpdatedAt');
+                // 更新Entry表数据
+                if (dis > item.get('updateInterval')) {
+                    Entry.update({
+                        id: item.id,
+                        active: '1'
+                    }, function(err, result) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            console.log(result);
+                        }
+                    });
+                }
+            })
         })
     });
 }

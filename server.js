@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-11-23 16:58:22
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-09 12:36:58
+ * @Last Modified time: 2015-12-16 01:26:25
  */
 
 'use strict';
@@ -19,8 +19,8 @@ var express = require('express'),
         domain: require('./middleware/domain'),
         api: require('./middleware/api'),
         router: require('./middleware/router'),
-        error: require('./middleware/error')
-    },
+        error: require('./middleware/error'),        
+    },    
 
     app = express();
 
@@ -30,8 +30,13 @@ function init() {
     conf.init();
 
     // 定时任务
-    //var cron = require('./cron');
-    //cron.cronJob();
+    var cron  = require('./middleware/cron');
+    cron.cronJob();
+
+    var entry = require('./components/entry/entry');
+    entry.fetch(function(err, result) {
+        console.log(result);
+    });
 
     // 处理 application/json 格式请求
     app.use(middleware.bodyParser.json({

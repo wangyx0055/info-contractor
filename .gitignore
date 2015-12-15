@@ -7,4 +7,8 @@ node_modules
 # IDEA
 .idea/
 
+# leancloud
 .avoscloud/
+
+# config files
+conf/
