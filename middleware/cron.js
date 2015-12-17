@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-12-05 00:20:54
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-17 14:38:21
+ * @Last Modified time: 2015-12-17 17:03:52
  */
 
 'use strict';
@@ -18,9 +18,9 @@ function cronJob() {
     rule.second = time;
 
     Schedule.scheduleJob(rule, function() {
-        Entry.active(function(result) {
-            if (result.status == 0) {
-                console.log(err);
+        Entry.active(function(res) {
+            if (res.status == 0) {
+                console.log(res.result);
             }
         })
     });
