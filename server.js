@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-11-23 16:58:22
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-16 01:26:25
+ * @Last Modified time: 2015-12-17 13:59:06
  */
 
 'use strict';
@@ -32,11 +32,6 @@ function init() {
     // 定时任务
     var cron  = require('./middleware/cron');
     cron.cronJob();
-
-    var entry = require('./components/entry/entry');
-    entry.fetch(function(err, result) {
-        console.log(result);
-    });
 
     // 处理 application/json 格式请求
     app.use(middleware.bodyParser.json({
