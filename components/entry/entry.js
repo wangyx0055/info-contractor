@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-12-06 15:11:08
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-17 14:37:33
+ * @Last Modified time: 2015-12-20 17:34:51
  */
 
 'use strict';
@@ -45,32 +45,33 @@ function active(callback) {
     var query = new AV.Query('Entry');
     query.ascending('createdAt');
     query.equalTo('available', '0');
-    query.limit(1);
+    query.find({
+        success: function(results) {
+            var isOk = false;
+            if (results.length == 0) {
+                callback(status(0, '没有entry可更新'));
+            }
+            results.forEach(function(result) {
+                var lastTime = result.get('lastUpdatedAt'),
+                    interval = result.get('updateInterval'),
+                    curTime = new Date().valueOf();
+                if ((curTime - lastTime) > interval) {
+                    isOk = true;
+                    result.set('available', '1');
+                    result.set('lastUpdatedAt', curTime);
+                    result.save();
+                }
+            })
+            if (isOk) {
+                callback(status(1, '更新成功'));
+            } else {
+                callback(status(0, '没有需要更新的entry'));
+            }
 
-    query.find().then(function(results) {
-        if (results.length == 0) {
-            return AV.Promise.error(0);
+        },
+        error: function(error) {
+            callback(status(0, '查找entry失败'));
         }
-        var lastTime = results[0].get('lastUpdatedAt'),
-            interval = results[0].get('updateInterval'),
-            curTime = new Date().valueOf();
-        if ((curTime - lastTime) > interval) {
-            results[0].set('available', '1');
-            results[0].set('lastUpdatedAt', curTime);
-            return results[0].save();
-        }
-
-    }, function(error) {
-        return AV.Promise.error('查找entry失败');
-
-    }).then(function(obj) {
-        callback(status(1, 'active'));
-
-    }, function(error) {
-        if (error != 0) {
-            callback(status(0, error));
-        }
-
     });
 }
 exports.active = active;
