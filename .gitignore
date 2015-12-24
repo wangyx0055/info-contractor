@@ -11,4 +11,4 @@ node_modules
 .avoscloud/
 
 # config files
-conf/
+conf/config.prod.json
