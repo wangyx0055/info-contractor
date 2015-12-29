@@ -2,7 +2,7 @@
  * @Author: boxizen
  * @Date:   2015-12-01 14:11:43
  * @Last Modified by:   boxizen
- * @Last Modified time: 2015-12-09 20:40:17
+ * @Last Modified time: 2015-12-29 18:28:05
  */
 
 'use strict';
@@ -71,3 +71,20 @@ function get(options, callback) {
     });
 }
 exports.get = get;
+
+// 添加点赞记录
+function like(id, callback) {
+    var query = new AV.Query(Target);
+    query.get(id, {
+        success: function(post) {
+            var likeNum = post.get('like');
+            post.set('like', likeNum + parseInt(1));
+            post.save();
+            callback(null, post);
+        },
+        error: function(error) {
+            callback('查找失败', null);
+        }
+    });
+}
+exports.like = like;
